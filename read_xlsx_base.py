@@ -51,7 +51,6 @@ class GenerateSql(object):
     update_head = 'update '
 
     def create_sql_by_type(self, sql_type, sheet_name):
-        print sql_type, sheet_name
         func = self.support_sql_type.get(sql_type)
         if func is not None:
             return func()
@@ -119,7 +118,6 @@ class GenerateSql(object):
 
             delete_sql = "delete from " + self.table_name + " where " + \
             str(filed[0]) + " = " + value_str + ";"
-            print delete_sql
             sql_statement.append(delete_sql)
 
         return sql_statement
