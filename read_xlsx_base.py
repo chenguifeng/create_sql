@@ -73,7 +73,7 @@ class GenerateSql(object):
 
     def create_update_sql(self):
         '''
-        update tablename set xx = xx, where id = xx;
+        update tablename set xx = xx, where id = xx;find_channel_flag_set -
         and we assume the id was in the first position
         :param sheet_name:
         :return:
@@ -149,6 +149,11 @@ class GenerateSql(object):
             for value in values:
                 value_content += self.get_value_str(value)
 
+            # check the len was equal
+            none_str_num = len(self.xlsx.get_all_field_name_by_sheet_name(self.sheet_name)) - len(values)
+
+            for i in range(none_str_num):
+                value_content += '"",'
             value_content = value_content[:len(value_content) - 1]
 
             value_list.append(value_start + value_content + value_end)
@@ -161,6 +166,7 @@ class GenerateSql(object):
         if isinstance(value, (int, float)):
             return str(value) + ","
 
+        value = str(u''.join(value).encode('utf8'))
         return '"' + value + '",'
 
 
